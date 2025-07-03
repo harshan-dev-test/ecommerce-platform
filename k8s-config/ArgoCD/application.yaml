@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://github.com/harshan-dev-test/k8s-config.git
     targetRevision: HEAD
-    path: Infrastructure/kubernetes
+    path: k8s-config/Infrastructure/kubernetes
     directory:
       recurse: true
     
