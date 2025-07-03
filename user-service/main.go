@@ -5,12 +5,14 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"user-service/config"
 	"user-service/database"
 	"user-service/router"
 )
 
 func main() {
-	
+	config.LoadEnv()
+
 	PORT := os.Getenv("APPLICATION_PORT")
 	if PORT ==""{
 		PORT="8080"

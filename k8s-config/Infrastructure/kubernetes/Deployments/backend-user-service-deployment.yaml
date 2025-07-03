@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service-deployment
+  namespace: development
+  labels:
+    app: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabeles:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image:
+          ports:
+            - containerPort: 8080
+          env:
+            - name: APPLICATION_PORT
+              value: "8080"
+            - name: DB_HOST
+              value: user-service-mysql-database
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: user-service-mysql-secret
+                  key: mysql-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: user-service-mysql-secret
+                  key: mysql-password
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: user-service-mysql-secret
+                  key: mysql-database
+            - name: DB_PORT
+              value: "3306"
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: user-service-jwt-secret
+                  key: user-service-jwt
